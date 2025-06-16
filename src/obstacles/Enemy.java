@@ -1,3 +1,4 @@
+package obstacles;
 public class Enemy {
     private int health;
     private int speed;

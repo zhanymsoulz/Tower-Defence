@@ -1,4 +1,9 @@
+package logic;
 import java.util.ArrayList;
+
+import obstacles.Boss;
+import obstacles.Enemy;
+import tower.Tower;
 
 public class GameBoard implements GameBoardI{
     private ArrayList<Tower> towers;

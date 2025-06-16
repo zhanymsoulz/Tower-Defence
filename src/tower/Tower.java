@@ -1,4 +1,7 @@
+package tower;
 import java.util.ArrayList;
+
+import obstacles.Enemy;
 
 public abstract class Tower {
     protected int damage;

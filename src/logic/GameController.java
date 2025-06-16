@@ -1,4 +1,11 @@
+package logic;
 import java.util.Scanner;
+
+import obstacles.Boss;
+import obstacles.Enemy;
+import tower.BasicTower;
+import tower.LaserTower;
+
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;

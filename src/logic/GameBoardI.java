@@ -1,3 +1,4 @@
+package logic;
 public interface GameBoardI {
     void create();
     boolean read();

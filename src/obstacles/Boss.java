@@ -1,3 +1,4 @@
+package obstacles;
 public class Boss extends Enemy {
     private int specialAbilityCooldown;
     private static final int SPECIAL_ABILITY_DAMAGE = 30;
