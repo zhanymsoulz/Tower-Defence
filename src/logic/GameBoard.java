@@ -64,9 +64,9 @@ public class GameBoard implements GameBoardI{
         ArrayList<Enemy> defeated = new ArrayList<>();
         for (Enemy enemy : enemies) {
             if (enemy.getHealth() <= 0) {
-                System.out.println("Enemy defeated! You earned $10.");
+                System.out.println("Enemy defeated! You earned $20.");
                 defeated.add(enemy);
-                gameController.addMoney(10);  // Reward the player
+                gameController.addMoney(20);  // Reward the player
             }
         }
         enemies.removeAll(defeated);

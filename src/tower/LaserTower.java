@@ -5,7 +5,7 @@ import obstacles.Enemy;
 
 public class LaserTower extends Tower {
     public LaserTower() {
-        super(5, 5); // Damage: 5, Range: 5
+        super(10, 6); // Damage: 5, Range: 5
     }
 
     @Override
@@ -13,7 +13,8 @@ public class LaserTower extends Tower {
         for (Enemy enemy : enemies) {
             if (enemy.getDistance() <= range) {
                 enemy.takeDamage(damage);
-                System.out.println("Laser Tower hits multiple enemies! Enemy HP: " + enemy.getHealth());
+                System.out.println("Laser Tower hits multiple enemies!");
+System.out.println("Enemy took " + damage + " damage! HP left: " + enemy.getHealth());
             }
         }
     }

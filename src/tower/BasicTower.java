@@ -5,7 +5,7 @@ import obstacles.Enemy;
 
 public class BasicTower extends Tower {
     public BasicTower() {
-        super(10, 3); // Damage: 10, Range: 3
+        super(15, 4); // Damage: 10, Range: 3
     }
 
     @Override
@@ -13,7 +13,9 @@ public class BasicTower extends Tower {
         for (Enemy enemy : enemies) {
             if (enemy.getDistance() <= range) {
                 enemy.takeDamage(damage);
-                System.out.println("Basic Tower attacks! Enemy HP: " + enemy.getHealth());
+                System.out.println("Basic Tower hits multiple enemies!");
+System.out.println("Enemy took " + damage + " damage! HP left: " + enemy.getHealth());
+
                 break; // Attack only one enemy per turn
             }
         }

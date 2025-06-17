@@ -7,7 +7,7 @@ public class Enemy {
     public Enemy(int health, int speed) {
         this.health = health;
         this.speed = speed;
-        this.distance = 10; // Start position
+        this.distance = 13; // Start position
     }
 
     public void move() {

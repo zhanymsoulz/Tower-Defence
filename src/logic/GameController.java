@@ -1,10 +1,13 @@
 package logic;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import obstacles.Boss;
 import obstacles.Enemy;
 import tower.BasicTower;
 import tower.LaserTower;
+import tower.Tower;
 
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -19,6 +22,7 @@ public class GameController implements GameI{
     private int LaserTowerQuantity;
     private int BasicTowerQuantity;
     private int currentRound;
+    private List<Tower> boughtTowers = new ArrayList<>();
 
     public GameController() {
         this.level = 1;
@@ -30,7 +34,7 @@ public class GameController implements GameI{
     public GameController(int level, int LaserTowerQuantity, int BasicTowerQuantity) {
         this.level = level;
         this.currentRound = 1;
-        this.playerBudget = 100;
+        this.playerBudget = 100 + (level - 1) * 75;
         this.LaserTowerQuantity = LaserTowerQuantity;
         this.BasicTowerQuantity = BasicTowerQuantity;
         this.gameBoard = new GameBoard(this);
@@ -67,22 +71,32 @@ public class GameController implements GameI{
             int choice = scanner.nextInt();
 
             if (choice == 1) {
-                if (playerBudget >= 20) {
-                    gameBoard.add(new BasicTower());
-                    playerBudget -= 20;
-                    System.out.println("Basic Tower placed! Remaining budget: $" + playerBudget);
-                } else {
-                    System.out.println("Not enough money!");
-                }
-            } else if (choice == 2) {
-                if (playerBudget >= 30) {
-                    gameBoard.add(new LaserTower());
-                    playerBudget -= 30;
-                    System.out.println("Laser Tower placed! Remaining budget: $" + playerBudget);
-                } else {
-                    System.out.println("Not enough money!");
-                }
-            } else if (choice == 3) {
+    if (playerBudget >= 20) {
+        BasicTower tower = new BasicTower();
+gameBoard.add(tower);
+boughtTowers.add(tower);
+BasicTowerQuantity++; // ✅ This line is missing!
+playerBudget -= 20;
+
+        System.out.println("Basic Tower placed! Remaining budget: $" + playerBudget);
+    } else {
+        System.out.println("Not enough money!");
+    }
+}
+else if (choice == 2) {
+    if (playerBudget >= 30) {
+        LaserTower tower = new LaserTower();
+gameBoard.add(tower);
+boughtTowers.add(tower);
+LaserTowerQuantity++; // ✅ This line is missing!
+playerBudget -= 30;
+
+        System.out.println("Laser Tower placed! Remaining budget: $" + playerBudget);
+    } else {
+        System.out.println("Not enough money!");
+    }
+}
+ else if (choice == 3) {
                 gameBoard.update();
                 gameBoard.display();
                 
@@ -93,12 +107,15 @@ public class GameController implements GameI{
                     
                     // Check if level is complete
                     if (currentRound > ROUNDS_PER_LEVEL) {
-                        level++;
-                        currentRound = 1;
-                        System.out.println("Level " + (level - 1) + " completed! Moving to level " + level);
-                        // Increase difficulty for next level
-                        playerBudget += 50; // Bonus money for completing level
-                    }
+    level++;
+    currentRound = 1;
+    playerBudget += 50;
+
+    // Reset counters
+    LaserTowerQuantity = 0;
+    BasicTowerQuantity = 0;
+}
+
                     
                     // Spawn new enemies for next round
                     spawnEnemies();
@@ -113,6 +130,12 @@ public class GameController implements GameI{
                 System.out.println("Game saved! Final stats - Level: " + level + ", Round: " + currentRound + ", Budget: $" + playerBudget);
                 break;
             }
+            System.out.println("Towers purchased so far:");
+for (int i = 0; i < boughtTowers.size(); i++) {
+    Tower t = boughtTowers.get(i);
+    System.out.println((i + 1) + ". " + t.getClass().getSimpleName());
+}
+
         }
     }
 
@@ -140,7 +163,6 @@ public class GameController implements GameI{
         try (FileWriter writer = new FileWriter(SAVE_FILE)) {
             writer.write("level,laserTowerQuantity,basicTowerQuantity\n");
             writer.write(String.format("%d,%d,%d\n", level, LaserTowerQuantity, BasicTowerQuantity));
-            System.out.println("Game progress saved successfully!");
         } catch (IOException e) {
             System.out.println("Error saving game progress: " + e.getMessage());
         }
@@ -148,12 +170,12 @@ public class GameController implements GameI{
     @Override
     public GameController load() {
         // Create data directory if it doesn't exist
-        File dataDir = new File("./data");
+        File dataDir = new File("../data");
         if (!dataDir.exists()) {
             dataDir.mkdirs();
         }
-
         try (BufferedReader reader = new BufferedReader(new FileReader(SAVE_FILE))) {
+
             // Skip header line
             reader.readLine();
             

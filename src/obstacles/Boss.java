@@ -7,7 +7,7 @@ public class Boss extends Enemy {
 
     public Boss(int health, int speed) {
         super(health * 2, speed); // Boss has double health
-        this.specialAbilityCooldown = 0;
+        this.specialAbilityCooldown = 10;
     }
 
     @Override
