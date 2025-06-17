@@ -1,5 +1,6 @@
 package logic;
 import java.util.ArrayList;
+import java.util.List;
 
 import obstacles.Boss;
 import obstacles.Enemy;
@@ -92,7 +93,6 @@ public class GameBoard implements GameBoardI{
 
     @Override
     public void create() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        List<Tower> tower= new ArrayList<>();
     }
 }
